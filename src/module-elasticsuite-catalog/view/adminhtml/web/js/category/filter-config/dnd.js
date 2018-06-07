@@ -31,19 +31,19 @@ define(['Magento_Ui/js/dynamic-rows/dnd'], function (Dnd) {
             if (dragData.depElement.insert === 'after') {
                 plannedPosition = depElemPosition + 1;
             } else if (dragData.depElement.insert === 'before') {
-                plannedPosition = dragData.instanceCtx.position = depElemPosition;
+                plannedPosition = dragData.instanceCtx.position = depElemPosition - 1;
             }
 
             if (dragData.instanceCtx.isPinned() === true) {
-                var maxPinnedPosition = dragData.instanceCtx.parentComponent().getPinnedRecords().length + 1;
-                if (plannedPosition > maxPinnedPosition) {
-                    // Do nothing in this case, this occurs when dropping a pinned item outside other pinned items.
-                    return;
+                var pinnedRecords = dragData.instanceCtx.parentComponent().getPinnedRecords();
+                var lastPinnedRecord = pinnedRecords[pinnedRecords.length - 1]; 
+                if (plannedPosition > lastPinnedRecord.position) {
+                    plannedPosition = lastPinnedRecord.position + 1;
                 }
             }
 
             dragData.instanceCtx.position = plannedPosition;
-            dragData.instanceCtx.parentComponent().sortElements();
+            dragData.instanceCtx.parentComponent().sort(depElem, plannedPosition);
         }
     });
 });
