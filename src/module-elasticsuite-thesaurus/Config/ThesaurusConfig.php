@@ -26,6 +26,11 @@ class ThesaurusConfig
     /**
      * @var array
      */
+    private $general;
+
+    /**
+     * @var array
+     */
     private $synonymsConfig;
 
     /**
@@ -36,13 +41,25 @@ class ThesaurusConfig
     /**
      * Constructor.
      *
+     * @param array $general    Global configuration.
      * @param array $synonyms   Synonyms configuration.
      * @param array $expansions Expansions configuration.
      */
-    public function __construct($synonyms = [], $expansions = [])
+    public function __construct($general = [], $synonyms = [], $expansions = [])
     {
+        $this->general          = $general;
         $this->synonymsConfig   = $synonyms;
         $this->expansionsConfig = $expansions;
+    }
+
+    /**
+     * Max number of substitutions allowed.
+     *
+     * @return integer
+     */
+    public function getMaxSubstitutions()
+    {
+        return (int) ($this->general['max_substitutions'] ?? 2);
     }
 
     /**
