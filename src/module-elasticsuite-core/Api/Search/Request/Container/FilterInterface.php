@@ -26,9 +26,7 @@ interface FilterInterface
     /**
      * Get filter query according to current search context.
      *
-     * @param \Smile\ElasticsuiteCore\Api\Search\ContextInterface $searchContext Search Context
-     *
      * @return \Smile\ElasticsuiteCore\Search\Request\QueryInterface
      */
-    public function getFilterQuery(\Smile\ElasticsuiteCore\Api\Search\ContextInterface $searchContext);
+    public function getFilterQuery();
 }
